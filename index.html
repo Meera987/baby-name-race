@@ -16,17 +16,6 @@
         #qrCode {
             margin-top: 50px;
         }
-        #nameContainer {
-            margin-top: 20px;
-        }
-        input {
-            display: block;
-            margin: 10px auto;
-            padding: 10px;
-            font-size: 16px;
-            text-align: center;
-            width: 80%;
-        }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
 </head>
@@ -36,7 +25,7 @@
     
     <script>
         function generateQRCode() {
-            let url = window.location.href.replace("index.html", "name_entry.html");
+            let url = window.location.origin + "/name_entry.html";
             new QRious({
                 element: document.getElementById("qrCode"),
                 value: url,
