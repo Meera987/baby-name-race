@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baby Name Race Game</title>
+    <title>Baby Name Race</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -28,13 +28,19 @@
         #qrCode {
             margin-top: 20px;
         }
+        #timer {
+            font-size: 20px;
+            font-weight: bold;
+            color: red;
+        }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
 </head>
 <body>
-    <h1>Baby Name Race Game</h1>
-    <p>Enter baby names and start the race!</p>
+    <h1>Baby Name Race</h1>
+    <p id="timer">Time Left: 5:00</p>
     
+    <h2>Add 20-30 Baby Names</h2>
     <input type="text" id="nameInput" placeholder="Enter a baby name">
     <button onclick="addName()">Add Name</button>
 
@@ -48,7 +54,8 @@
 
     <script>
         let names = [];
-
+        let timeLeft = 300;
+        
         function addName() {
             let nameInput = document.getElementById("nameInput").value;
             if (nameInput.trim() !== "") {
@@ -71,14 +78,31 @@
 
         function generateQRCode() {
             let url = window.location.href;
-            let qr = new QRious({
+            new QRious({
                 element: document.getElementById("qrCode"),
                 value: url,
                 size: 200
             });
         }
 
-        window.onload = generateQRCode;
+        function startTimer() {
+            let timerDisplay = document.getElementById("timer");
+            let countdown = setInterval(() => {
+                let minutes = Math.floor(timeLeft / 60);
+                let seconds = timeLeft % 60;
+                timerDisplay.textContent = `Time Left: ${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+                if (timeLeft <= 0) {
+                    clearInterval(countdown);
+                    alert("Time's up! Start the race now!");
+                }
+                timeLeft--;
+            }, 1000);
+        }
+        
+        window.onload = function() {
+            generateQRCode();
+            startTimer();
+        };
     </script>
 </body>
 </html>
