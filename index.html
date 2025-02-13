@@ -9,29 +9,30 @@
             font-family: Arial, sans-serif;
             text-align: center;
             margin: 50px;
-        }
-        input, button {
-            margin: 10px;
-            padding: 10px;
-            font-size: 16px;
-        }
-        #nameList {
-            margin: 20px 0;
-            list-style-type: none;
-            padding: 0;
-        }
-        .winner {
-            font-size: 24px;
-            font-weight: bold;
-            color: green;
+            background-image: url('https://source.unsplash.com/1600x900/?newborn,baby');
+            background-size: cover;
+            background-position: center;
         }
         #qrCode {
+            margin-top: 50px;
+        }
+        #nameContainer {
+            display: none;
             margin-top: 20px;
+        }
+        input {
+            display: block;
+            margin: 10px auto;
+            padding: 10px;
+            font-size: 16px;
+            text-align: center;
+            width: 80%;
         }
         #timer {
             font-size: 20px;
             font-weight: bold;
             color: red;
+            margin-bottom: 20px;
         }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
@@ -40,42 +41,17 @@
     <h1>Baby Name Race</h1>
     <p id="timer">Time Left: 5:00</p>
     
-    <h2>Add 20-30 Baby Names</h2>
-    <input type="text" id="nameInput" placeholder="Enter a baby name">
-    <button onclick="addName()">Add Name</button>
-
-    <ul id="nameList"></ul>
-    
-    <button onclick="startRace()">Start Race</button>
-    <p id="winner" class="winner"></p>
-    
-    <h2>Scan to Access the Game</h2>
     <canvas id="qrCode"></canvas>
 
+    <div id="nameContainer">
+        <input type="text" id="nameInput" placeholder="Enter a baby name" onkeypress="handleKeyPress(event)">
+        <ul id="nameList"></ul>
+    </div>
+    
     <script>
         let names = [];
         let timeLeft = 300;
         
-        function addName() {
-            let nameInput = document.getElementById("nameInput").value;
-            if (nameInput.trim() !== "") {
-                names.push(nameInput);
-                let listItem = document.createElement("li");
-                listItem.textContent = nameInput;
-                document.getElementById("nameList").appendChild(listItem);
-                document.getElementById("nameInput").value = "";
-            }
-        }
-
-        function startRace() {
-            if (names.length > 0) {
-                let winner = names[Math.floor(Math.random() * names.length)];
-                document.getElementById("winner").textContent = `Winner: ${winner}! 🎉`;
-            } else {
-                alert("Please add at least one name!");
-            }
-        }
-
         function generateQRCode() {
             let url = window.location.href;
             new QRious({
@@ -83,6 +59,19 @@
                 value: url,
                 size: 200
             });
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === "Enter") {
+                let nameInput = document.getElementById("nameInput").value;
+                if (nameInput.trim() !== "") {
+                    names.push(nameInput);
+                    let listItem = document.createElement("li");
+                    listItem.textContent = nameInput;
+                    document.getElementById("nameList").appendChild(listItem);
+                    document.getElementById("nameInput").value = "";
+                }
+            }
         }
 
         function startTimer() {
@@ -93,12 +82,12 @@
                 timerDisplay.textContent = `Time Left: ${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
                 if (timeLeft <= 0) {
                     clearInterval(countdown);
-                    alert("Time's up! Start the race now!");
+                    alert("Time's up! Entered names will be used for the race!");
                 }
                 timeLeft--;
             }, 1000);
         }
-        
+
         window.onload = function() {
             generateQRCode();
             startTimer();
