@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baby Name Race Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        input, button {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        #nameList {
+            margin: 20px 0;
+            list-style-type: none;
+            padding: 0;
+        }
+        .winner {
+            font-size: 24px;
+            font-weight: bold;
+            color: green;
+        }
+        #qrCode {
+            margin-top: 20px;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+</head>
+<body>
+    <h1>Baby Name Race Game</h1>
+    <p>Enter baby names and start the race!</p>
+    
+    <input type="text" id="nameInput" placeholder="Enter a baby name">
+    <button onclick="addName()">Add Name</button>
+
+    <ul id="nameList"></ul>
+    
+    <button onclick="startRace()">Start Race</button>
+    <p id="winner" class="winner"></p>
+    
+    <h2>Scan to Access the Game</h2>
+    <canvas id="qrCode"></canvas>
+
+    <script>
+        let names = [];
+
+        function addName() {
+            let nameInput = document.getElementById("nameInput").value;
+            if (nameInput.trim() !== "") {
+                names.push(nameInput);
+                let listItem = document.createElement("li");
+                listItem.textContent = nameInput;
+                document.getElementById("nameList").appendChild(listItem);
+                document.getElementById("nameInput").value = "";
+            }
+        }
+
+        function startRace() {
+            if (names.length > 0) {
+                let winner = names[Math.floor(Math.random() * names.length)];
+                document.getElementById("winner").textContent = `Winner: ${winner}! 🎉`;
+            } else {
+                alert("Please add at least one name!");
+            }
+        }
+
+        function generateQRCode() {
+            let url = window.location.href;
+            let qr = new QRious({
+                element: document.getElementById("qrCode"),
+                value: url,
+                size: 200
+            });
+        }
+
+        window.onload = generateQRCode;
+    </script>
+</body>
+</html>
