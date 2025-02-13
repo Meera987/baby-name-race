@@ -3,39 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baby Name Race</title>
+    <title>Boho-Themed Baby Shower</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 50px;
-            background-image: url('https://source.unsplash.com/1600x900/?newborn,baby');
-            background-size: cover;
-            background-position: center;
+            font-family: 'Arial', sans-serif;
+            background-color: #f1f4f6;
+            margin: 0;
+            padding: 0;
+            color: #333;
         }
-        #qrCode {
-            margin-top: 50px;
+        header {
+            background-color: #f7b5d1;
+            padding: 15px;
+            text-align: center;
+            color: #fff;
+            font-size: 2em;
+        }
+        .boho-theme {
+            background: url('boho-background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            padding: 50px;
+            text-align: center;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+        .timer {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 80%;
+            margin: 0 auto;
+            border-collapse: collapse;
+            background-color: #fff;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: center;
+        }
+        th {
+            background-color: #f7b5d1;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            box-sizing: border-box;
+        }
+        .button {
+            padding: 15px 25px;
+            background-color: #f7b5d1;
+            border: none;
+            color: white;
+            font-size: 1em;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .button:hover {
+            background-color: #d78d92;
         }
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
 </head>
 <body>
-    <h1>Scan the QR Code to Enter Names</h1>
-    <canvas id="qrCode"></canvas>
-    
-    <script>
-        function generateQRCode() {
-            let url = window.location.origin + "/name_entry.html";
-            new QRious({
-                element: document.getElementById("qrCode"),
-                value: url,
-                size: 200
-            });
+
+<header>Boho-Themed Baby Shower</header>
+
+<div class="boho-theme">
+    <p>Welcome to our Boho Baby Shower! Please enter the names in the table below.</p>
+    <div class="timer" id="timer">05:00</div>
+</div>
+
+<table>
+    <tr>
+        <th>Name 1</th>
+        <th>Name 2</th>
+        <th>Name 3</th>
+        <th>Name 4</th>
+    </tr>
+    <tr>
+        <td><input type="text" placeholder="Enter Name"></td>
+        <td><input type="text" placeholder="Enter Name"></td>
+        <td><input type="text" placeholder="Enter Name"></td>
+        <td><input type="text" placeholder="Enter Name"></td>
+    </tr>
+    <tr>
+        <td><input type="text" placeholder="Enter Name"></td>
+        <td><input type="text" placeholder="Enter Name"></td>
+        <td><input type="text" placeholder="Enter Name"></td>
+        <td><input type="text" placeholder="Enter Name"></td>
+    </tr>
+    <tr>
+        <td><input type="text" placeholder="Enter Name"></td>
+        <td><input type="text" placeholder="Enter Name"></td>
+        <td><input type="text" placeholder="Enter Name"></td>
+        <td><input type="text" placeholder="Enter Name"></td>
+    </tr>
+    <!-- Add more rows as needed -->
+</table>
+
+<button class="button">Submit</button>
+
+<script>
+    let timeLeft = 300; // 5 minutes in seconds
+    const timerElement = document.getElementById('timer');
+
+    function updateTimer() {
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+        timerElement.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            alert('Time is up!');
+        } else {
+            timeLeft--;
         }
-        
-        window.onload = function() {
-            generateQRCode();
-        };
-    </script>
+    }
+
+    const timerInterval = setInterval(updateTimer, 1000);
+</script>
+
 </body>
 </html>
