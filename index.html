@@ -157,7 +157,7 @@
 
         
         try {
-            const response = await fetch("https://script.google.com/macros/s/AKfycbxj4rnKZ0i9te5qV-9acelW_OELYVm532_-cXlaVnbt9Q2UEJo_7UaU3F6B7iOwZ52ajA/exec", {
+            const response = await fetch("https://script.google.com/macros/s/AKfycbzhcekU2vogANQt9Q88nr4yli_F7o4Pe5xPjMxAVHIiPHxtbymo2LG7oiwdf7YUeVPzww/exec", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -168,10 +168,9 @@
                     name3: "Alex",
                     name4: "Emily"
                 })
+                return response.json();
             });
-
-            
-            .then(response => response.json())
+            /!.then(response => response.json())
             .then(data => console.log("Success:", data))
             .catch(error => console.error("Error:", error));
 
