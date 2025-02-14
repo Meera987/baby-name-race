@@ -162,23 +162,18 @@
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify(data)
+                body: JSON.stringify({
+                    name1: "John",
+                    name2: "Jane",
+                    name3: "Alex",
+                    name4: "Emily"
+                })
             });
 
-            const result = await response.json();
-
-            if (result.status === "success") {
-                showNotification("✅ Data submitted successfully!", "success");
-
-                // Clear input fields after submission
-                document.querySelectorAll("input[type=text]").forEach(input => input.value = "");
-            } else {
-                showNotification("❌ Error submitting data!", "error");
-            }
-        } catch (error) {
-            showNotification("❌ Network error. Try again!", "error");
-        }
-    }
+            
+            .then(response => response.json())
+            .then(data => console.log("Success:", data))
+            .catch(error => console.error("Error:", error));
 
     function showNotification(message, type) {
         const notification = document.createElement("div");
