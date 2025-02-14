@@ -83,34 +83,34 @@
 </div>
 
 <table>
-    <tr>
+    /*<tr>
         <th>Name 1</th>
         <th>Name 2</th>
         <th>Name 3</th>
         <th>Name 4</th>
+    </tr>*/
+    <tr>
+        <td><input type="text" id="name1" placeholder="Enter Name"></td>
+        <td><input type="text" id="name2" placeholder="Enter Name"></td>
+        <td><input type="text" id="name3" placeholder="Enter Name"></td>
+        <td><input type="text" id="name4" placeholder="Enter Name"></td>
     </tr>
     <tr>
-        <td><input type="text" placeholder="Enter Name"></td>
-        <td><input type="text" placeholder="Enter Name"></td>
-        <td><input type="text" placeholder="Enter Name"></td>
-        <td><input type="text" placeholder="Enter Name"></td>
+        <td><input type="text" id="name5" placeholder="Enter Name"></td>
+        <td><input type="text" id="name6" placeholder="Enter Name"></td>
+        <td><input type="text" id="name7" placeholder="Enter Name"></td>
+        <td><input type="text" id="name8" placeholder="Enter Name"></td>
     </tr>
     <tr>
-        <td><input type="text" placeholder="Enter Name"></td>
-        <td><input type="text" placeholder="Enter Name"></td>
-        <td><input type="text" placeholder="Enter Name"></td>
-        <td><input type="text" placeholder="Enter Name"></td>
-    </tr>
-    <tr>
-        <td><input type="text" placeholder="Enter Name"></td>
-        <td><input type="text" placeholder="Enter Name"></td>
-        <td><input type="text" placeholder="Enter Name"></td>
-        <td><input type="text" placeholder="Enter Name"></td>
+        <td><input type="text" id="name9" placeholder="Enter Name"></td>
+        <td><input type="text" id="name10" placeholder="Enter Name"></td>
+        <td><input type="text" id="name11" placeholder="Enter Name"></td>
+        <td><input type="text" id="name12" placeholder="Enter Name"></td>
     </tr>
     <!-- Add more rows as needed -->
 </table>
 
-<button class="button">Submit</button>
+<button class="button" onclick="submitData()">Submit</button>
 
 <script>
     let timeLeft = 300; // 5 minutes in seconds
@@ -129,6 +129,30 @@
     }
 
     const timerInterval = setInterval(updateTimer, 1000);
+
+    async function submitData() {
+        const data = {
+            name1: document.getElementById("name1").value,
+            name2: document.getElementById("name2").value,
+            name3: document.getElementById("name3").value,
+            name4: document.getElementById("name4").value,
+            name5: document.getElementById("name5").value,
+            name6: document.getElementById("name6").value,
+            name7: document.getElementById("name7").value,
+            name8: document.getElementById("name8").value
+        };
+
+        const response = await fetch("https://docs.google.com/spreadsheets/d/17_isPpAo-txRNIiAN0GWRKRIBP7MkdzGcnFvsqxg5-Q/edit?gid=0#gid=0", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+        alert(result.message);
+    }    
 </script>
 
 </body>
