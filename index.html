@@ -176,16 +176,17 @@
             console.error("Error:", error);
         }
 
-    function showNotification(message, type) {
-        const notification = document.createElement("div");
-        notification.textContent = message;
-        notification.className = `notification ${type}`;
-        document.body.appendChild(notification);
+        function showNotification(message, type) {
+            const notification = document.createElement("div");
+            notification.textContent = message;
+            notification.className = `notification ${type}`;
+            document.body.appendChild(notification);
 
-        setTimeout(() => {
-            notification.remove();
-        }, 3000); // Remove after 3 seconds
-    }    
+            setTimeout(() => {
+                notification.remove();
+            }, 3000); // Remove after 3 seconds
+        }
+    }
 </script>
 
 </body>
