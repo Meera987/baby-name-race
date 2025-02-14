@@ -136,7 +136,26 @@
             name7: document.getElementById("name7").value,
             name8: document.getElementById("name8").value
         };
+        function doPost(e) {
+            try {
+                var sheet = SpreadsheetApp.openById("YOUR_SPREADSHEET_ID").getSheetByName("Names");
+                var data = JSON.parse(e.postData.contents);
+    
+                // Append data as a new row
+                sheet.appendRow(Object.values(data));
 
+                // Set proper CORS headers
+                return ContentService.createTextOutput(JSON.stringify({ status: "success", message: "Data saved!" }))
+                        .setMimeType(ContentService.MimeType.JSON)
+                        .setHeader('Access-Control-Allow-Origin', '*');  // Allow CORS
+            }   catch (error) {
+                return ContentService.createTextOutput(JSON.stringify({ status: "error", message: error.message }))
+                        .setMimeType(ContentService.MimeType.JSON)
+                        .setHeader('Access-Control-Allow-Origin', '*');  // Allow CORS
+            }
+    }
+
+        
         try {
             const response = await fetch("https://script.google.com/macros/s/AKfycbxj4rnKZ0i9te5qV-9acelW_OELYVm532_-cXlaVnbt9Q2UEJo_7UaU3F6B7iOwZ52ajA/exec", {
                 method: "POST",
