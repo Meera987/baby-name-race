@@ -168,9 +168,9 @@
                     name3: "Alex",
                     name4: "Emily"
                 })
-                return response.json();
-            });
-            /!.then(response => response.json())
+                
+            })
+            .then(response => response.json())
             .then(data => console.log("Success:", data))
             .catch(error => console.error("Error:", error));
 
